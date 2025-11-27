@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Açougue Beeflogy— Qualidade & Tradição</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Ícones simples (inline SVG usados no CSS/HTML) -->
+  <link rel="stylesheet" href="projeto.css">
+  <script src="projeto.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Açougue Beeflogy—">
+        <svg class="brand-logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="45" fill="#8a2b2b"/><path d="M28 65 C42 45 58 45 72 65" stroke="#ffd7c2" stroke-width="6" fill="none" stroke-linecap="round"/></svg>
+        <div>
+          <span class="brand-title">Açougue <strong>Beeflogy—</strong></span>
+          <small class="brand-sub">Cortes premium • Frescor diário</small>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Menu principal">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">☰</button>
+        <ul id="navMenu" class="nav-list">
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="#carrinho" id="openCart">Carrinho <span class="cart-count" id="cartCount">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1>O melhor corte. Preservamos o sabor.</h1>
+          <p class="lead">Do açougue tradicional às técnicas modernas: qualidade, procedência e cortes feitos por mestres açougueiros.</p>
+          <div class="hero-actions">
+            <a href="#produtos" class="btn-primary">Ver cortes</a>
+            <a href="#sobre" class="btn-outline">Nossa história</a>
+          </div>
+          <ul class="features">
+            <li>✔ Procedência rastreada</li>
+            <li>✔ Corte sob medida</li>
+            <li>✔ Entrega e preparos</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <!-- Simples composição visual -->
+          <div class="steak-card">
+            <div class="label">Corte Premium</div>
+            <div class="steak-photo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Produtos -->
+    <section id="produtos" class="section container">
+      <div class="section-head">
+        <h2>Nossos Cortes</h2>
+        <div class="controls">
+          <input type="search" id="search" placeholder="Buscar por corte, exemplo: picanha" aria-label="Buscar produtos">
+          <select id="filter" aria-label="Filtrar por tipo">
+            <option value="all">Todos</option>
+            <option value="bovino">Bovino</option>
+            <option value="suino">Suíno</option>
+            <option value="aves">Aves</option>
+          </select>
+          <select id="sort" aria-label="Ordenar">
+            <option value="featured">Destaques</option>
+            <option value="price-asc">Preço: menor → maior</option>
+            <option value="price-desc">Preço: maior → menor</option>
+            <option value="name-asc">Nome A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="section about">
+      <div class="container about-inner">
+        <div class="about-text">
+          <h2>Por que escolher o Açougue Beeflogy?</h2>
+          <p>Tradição familiar desde 1985, técnicas modernas de resfriamento e um compromisso com a transparência. Cortes dry-aged, curadoria de fornecedores e atendimento personalizado.</p>
+          <ul>
+            <li>Equipe treinada por mestres açougueiros</li>
+            <li>Selos de qualidade e procedência</li>
+            <li>Atendimento para eventos e churrascos</li>
+          </ul>
+        </div>
+        <div class="about-visual" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Contato / Pedido -->
+    <section id="contato" class="section container contact">
+      <h2>Fale conosco / Faça seu pedido</h2>
+      <div class="contact-grid">
+        <form id="contactForm" class="contact-form" novalidate>
+          <label>
+            Nome
+            <input type="text" name="nome" id="nome" required placeholder="Seu nome completo">
+          </label>
+
+          <label>
+            Telefone
+            <input type="tel" name="telefone" id="telefone" placeholder="(11) 9xxxx-xxxx">
+          </label>
+
+          <label>
+            Mensagem / Pedido
+            <textarea name="mensagem" id="mensagem" rows="5" placeholder="Ex: 2kg de picanha fatiada"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Enviar</button>
+            <button type="reset" class="btn-outline">Limpar</button>
+          </div>
+          <p class="form-note">Responderemos em até 24h úteis.</p>
+        </form>
+
+        <aside class="contact-info" aria-label="Informações de contato">
+          <h3>Endereço & Horário</h3>
+          <p>Rua Exemplo, 123 — Centro, Sua Cidade</p>
+          <p>Seg–Sáb: 08:00 — 19:00</p>
+          <h3>Telefone</h3>
+          <p><a href="tel:+5511999999999">+55 (11) 99999-9999</a></p>
+          <h3>Formas de pagamento</h3>
+          <p>Cartão • Pix • Dinheiro</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Carrinho (modal lateral) -->
+  <aside id="cartPanel" class="cart-panel" aria-hidden="true" aria-label="Carrinho de compras">
+    <div class="cart-header">
+      <h3>Seu Carrinho</h3>
+      <button id="closeCart" aria-label="Fechar carrinho">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div>
+      <div class="cart-actions">
+        <button id="clearCart" class="btn-outline">Limpar</button>
+        <button id="checkout" class="btn-primary">Finalizar</button>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p>© <span id="year"></span> Açougue Beeflogy— Todos os direitos reservados</p>
+      </div>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+
+
+ 
+  </footer>
+</body>
+</html>
