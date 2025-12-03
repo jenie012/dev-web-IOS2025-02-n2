@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar Pedido - Beeflogy</title>
+<style>
+body { font-family: Arial, sans-serif; background:#0f0f10; color:#fff; padding:20px; }
+h2 { color:#8a2b2b; }
+.input { width:100%; padding:10px; margin-bottom:12px; border-radius:8px; border:none; background:rgba(255,255,255,0.05); color:#fff; }
+.btn { width:100%; padding:12px; border:none; border-radius:10px; background:#8a2b2b; color:#fff; cursor:pointer; font-size:16px; margin-bottom:10px; }
+.payment-methods button { flex:1; margin:0 5px; padding:10px; border:none; border-radius:8px; cursor:pointer; background:#555; color:#fff; }
+.payment-methods button.active { background:#b33a3a; }
+.payment-methods { display:flex; justify-content:space-between; margin-bottom:15px; }
+#carrinho-final div { display:flex; align-items:center; margin-bottom:8px; }
+#carrinho-final img { width:50px; height:50px; object-fit:cover; border-radius:6px; margin-right:10px; }
+#qr-container { margin-top: 20px; text-align:center; }
+#cartao-container { margin-top: 20px; display:none; }
+</style>
+</head>
+<body>
+
+<h2>Finalizar Pedido</h2>
+<div id="carrinho-final"></div>
+<div id="total-final">Total: R$ 0,00</div>
+
+<input type="text" id="nome" class="input" placeholder="Seu nome" required>
+<input type="tel" id="telefone" class="input" placeholder="Telefone" required>
+<input type="text" id="endereco" class="input" placeholder="Endereço" required>
+
+<div class="payment-methods">
+  <button data-method="Dinheiro" class="active">Dinheiro</button>
+  <button data-method="Cartão">Cartão</button>
+  <button data-method="PIX">PIX</button>
+</div>
+
+<div id="qr-container"></div>
+
+<!-- Campos do cartão -->
+<div id="cartao-container">
+  <input type="text" id="numero-cartao" class="input" placeholder="Número do cartão" maxlength="16">
+  <input type="text" id="nome-cartao" class="input" placeholder="Nome no cartão">
+  <input type="text" id="validade-cartao" class="input" placeholder="Validade MM/AA" maxlength="5">
+  <input type="text" id="cvv-cartao" class="input" placeholder="CVV" maxlength="3">
+</div>
+
+<button id="btn-enviar" class="btn">Enviar Pedido</button>
+
+<!-- Biblioteca QRCode.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+let carrinho = JSON.parse(localStorage.getItem('carrinhoFinal')) || [];
+let metodoPagamento = "Dinheiro";
+const pixCode = "00020126330014br.gov.bcb.pix0111541548308055204000053039865802BR5918ALLE202401121827486009Sao Paulo610901227-20062240520daqr16346642472205006304C8C9";
+
+function atualizarCarrinhoFinal() {
+  const carrinhoFinal = document.getElementById('carrinho-final');
+  carrinhoFinal.innerHTML = '';
+  let total = 0;
+  carrinho.forEach(item=>{
+    total += item.preco;
+    const div = document.createElement('div');
+    div.innerHTML = '<img src="'+item.img+'" alt="'+item.nome+'"><span>'+item.nome+' - R$ '+item.preco.toFixed(2)+'</span>';
+    carrinhoFinal.appendChild(div);
+  });
+  document.getElementById('total-final').innerText = "Total: R$ " + total.toFixed(2);
+}
+
+atualizarCarrinhoFinal();
+
+const qrContainer = document.getElementById('qr-container');
+const cartaoContainer = document.getElementById('cartao-container');
+
+document.querySelectorAll('.payment-methods button').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.payment-methods button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    metodoPagamento = btn.getAttribute('data-method');
+
+    // Reset
+    qrContainer.innerHTML = '';
+    cartaoContainer.style.display = 'none';
+
+    if(metodoPagamento === 'PIX'){
+      new QRCode(qrContainer, {
+        text: pixCode,
+        width: 200,
+        height: 200,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+      });
+    } else if(metodoPagamento === 'Cartão'){
+      cartaoContainer.style.display = 'block';
+    }
+  }
+});
+
+document.getElementById('btn-enviar').onclick = () => {
+  const nome = document.getElementById('nome').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const endereco = document.getElementById('endereco').value.trim();
+  if(!nome || !telefone || !endereco){
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  let totalValor = carrinho.reduce((a,b)=>a+b.preco,0).toFixed(2);
+
+  if(metodoPagamento === 'PIX'){
+    alert("Pedido enviado!\nCliente: " + nome + "\nTelefone: " + telefone + "\nEndereço: " + endereco + "\nTotal: R$ " + totalValor + "\nPagamento: PIX\nUse o QR code exibido para pagar.");
+  } else if(metodoPagamento === 'Cartão'){
+    const numero = document.getElementById('numero-cartao').value.trim();
+    const titular = document.getElementById('nome-cartao').value.trim();
+    const validade = document.getElementById('validade-cartao').value.trim();
+    const cvv = document.getElementById('cvv-cartao').value.trim();
+    if(!numero || !titular || !validade || !cvv){
+      alert("Preencha todos os dados do cartão!");
+      return;
+    }
+    alert("Pedido enviado!\nCliente: " + nome + "\nTelefone: " + telefone + "\nEndereço: " + endereco + "\nTotal: R$ " + totalValor + "\nPagamento: Cartão\nNúmero: " + numero + "\nNome: " + titular + "\nValidade: " + validade);
+  } else {
+    alert("Pedido enviado!\nCliente: " + nome + "\nTelefone: " + telefone + "\nEndereço: " + endereco + "\nTotal: R$ " + totalValor + "\nPagamento: " + metodoPagamento);
+  }
+
+  localStorage.removeItem('carrinhoFinal');
+  window.close();
+};
+</script>
+
+</body>
+</html>
