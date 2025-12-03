@@ -1,157 +1,165 @@
 const produtos = [
-  {id:1,nome:'Picanha',preco:89.90,img:'https://i.pinimg.com/1200x/c7/51/2d/c7512d9a3d6ddb81289040069029f4c1.jpg',tipo:'bovinos'},
-  {id:2,nome:'Costela Bovina',preco:49.90,img:'https://i.pinimg.com/736x/7c/1b/3f/7c1b3f8c9471a2a6751ce06dc7aebc2a.jpg',tipo:'bovinos'},
-  {id:3,nome:'Alcatra',preco:59.90,img:'https://i.pinimg.com/1200x/c1/39/44/c139444bf874178c3dfee0eface7de4c.jpg',tipo:'bovinos'},
-  {id:4,nome:'Maminha',preco:54.90,img:'https://i.pinimg.com/736x/76/a5/f3/76a5f37c90b4a15712475da672a99778.jpg',tipo:'bovinos'},
-  {id:5,nome:'Fraldinha',preco:52.90,img:'https://i.pinimg.com/736x/6d/2b/e3/6d2be35cb3961fc7af8beb43bbe6ebe0.jpg',tipo:'bovinos'},
-  {id:6,nome:'Linguiça Toscana',preco:24.90,img:'https://i.pinimg.com/1200x/f8/43/84/f84384d90be0ad6165679de3cbee891f.jpg',tipo:'suinos'},
-  {id:7,nome:'Cupim',preco:44.90,img:'https://i.pinimg.com/1200x/a4/eb/48/a4eb48960f327ef554a9e6405df1262e.jpg',tipo:'bovinos'},
-  {id:8,nome:'Filé Mignon',preco:99.90,img:'https://i.pinimg.com/1200x/26/38/1c/26381c85aa4bca7f52636475495a80b2.jpg',tipo:'bovinos'},
-  {id:9,nome:'Contra Filé',preco:69.90,img:'https://i.pinimg.com/736x/b9/2a/46/b92a469de387eb81bc5b82a73a76d202.jpg',tipo:'bovinos'},
-  {id:10,nome:'Asinha de Frango',preco:18.90,img:'https://i.pinimg.com/1200x/36/00/bc/3600bcd1efa6b409f0207d656fb47d10.jpg',tipo:'aves'},
-  {id:11,nome:'Pernil',preco:32.90,img:'https://uploaddeimagens.com.br/images/004/941/833/full/pernil.jpg',tipo:'suinos'},
-  {id:12,nome:'Panceta',preco:39.90,img:'https://uploaddeimagens.com.br/images/004/941/834/full/panceta.jpg',tipo:'suinos'}
+  // Bovinos
+  {id:1, nome:'Picanha', preco:89.90, categoria:'Bovino', corte:'Picanha', img:'https://i.pinimg.com/1200x/c7/51/2d/c7512d9a3d6ddb81289040069029f4c1.jpg'},
+  {id:2, nome:'Alcatra', preco:59.90, categoria:'Bovino', corte:'Alcatra', img:'https://i.pinimg.com/1200x/c1/39/44/c139444bf874178c3dfee0eface7de4c.jpg'},
+  {id:3, nome:'Filé Mignon', preco:99.90, categoria:'Bovino', corte:'Filé Mignon', img:'https://www.tudogostoso.com.br/images/recipes/000/018/183/filé-mignon.jpg'},
+  {id:4, nome:'Coxão Mole', preco:45.50, categoria:'Bovino', corte:'Coxão Mole', img:'https://www.carnes.com.br/wp-content/uploads/coxao-mole.jpg'},
+  {id:5, nome:'Maminha', preco:52.00, categoria:'Bovino', corte:'Maminha', img:'https://www.receiteria.com.br/wp-content/uploads/receita-de-maminha-assada-1200x675.jpg'},
+
+  // Suínos
+  {id:6, nome:'Costela Suína', preco:49.90, categoria:'Suíno', corte:'Costela', img:'https://i.pinimg.com/736x/7c/1b/7c1b3f8c9471a2a6751ce06dc7aebc2a.jpg'},
+  {id:7, nome:'Lombo', preco:55.00, categoria:'Suíno', corte:'Lombo', img:'https://www.receiteria.com.br/wp-content/uploads/receita-lombo-1200x675.jpg'},
+
+  // Linguiças
+  {id:8, nome:'Linguiça Toscana', preco:25.90, categoria:'Linguiça', corte:'Linguiça', img:'https://img.freepik.com/fotos-premium/linguica-toscana-na-churrasqueira_23-2148812280.jpg'},
+  {id:9, nome:'Linguiça de Frango', preco:22.90, categoria:'Linguiça', corte:'Linguiça', img:'https://img.freepik.com/fotos-gratis/linguica-de-frango-assada.jpg'},
+
+  // Peixes
+  {id:10, nome:'Salmão', preco:75.00, categoria:'Peixe', corte:'Filé', img:'https://www.receiteria.com.br/wp-content/uploads/filé-de-salmao.jpg'},
+  {id:11, nome:'Tilápia', preco:42.00, categoria:'Peixe', corte:'Filé', img:'https://www.receiteria.com.br/wp-content/uploads/filé-de-tilapia.jpg'},
+  {id:12, nome:'Bacalhau', preco:120.00, categoria:'Peixe', corte:'Posta', img:'https://www.receiteria.com.br/wp-content/uploads/bacalhau-assado.jpg'}
 ];
 
-let carrinho = [];
+div.innerHTML = `
+  <img src="${p.img}" alt="${p.nome}">
+  <h3>${p.nome}</h3>
+  <p>${p.categoria} - Corte: ${p.corte}</p>
+  <p>R$ ${p.preco.toFixed(2)}</p>
+  <button>Adicionar</button>
+`;
 
-// Monta produtos na página
-function montarProdutos(){
+function filtrar(categoria){
   const area = document.getElementById('lista-produtos');
   area.innerHTML = '';
-  produtos.forEach((p,idx)=>{
-    const card = document.createElement('div');
-    card.className = 'produto fade-in';
-    card.style.animationDelay = (idx*40)+'ms';
-    card.innerHTML = `
+  let lista = categoria === 'Todos' ? produtos : produtos.filter(p => p.categoria === categoria);
+  lista.forEach(p=>{
+    const div = document.createElement('div');
+    div.className = 'produto';
+    div.innerHTML = `
       <img src="${p.img}" alt="${p.nome}">
       <h3>${p.nome}</h3>
+      <p>${p.categoria} - Corte: ${p.corte}</p>
       <p>R$ ${p.preco.toFixed(2)}</p>
-      <button onclick="adicionarCarrinho(${p.id})">Adicionar ao Carrinho</button>
+      <button>Adicionar</button>
     `;
-    area.appendChild(card);
+    div.querySelector('button').onclick = ()=>{ adicionarCarrinho(p.id); };
+    area.appendChild(div);
   });
 }
 
-// Alternar abas
-function aba(id){
-  document.querySelectorAll('.aba').forEach(x=>x.classList.add('hidden'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.remove('hidden');
-  document.getElementById(id).querySelectorAll('*').forEach(el=>{
-    el.classList.remove('fade-in'); 
-    void el.offsetWidth; 
-    el.classList.add('fade-in'); 
-  });
+
+let carrinho = JSON.parse(localStorage.getItem('carrinhoFinal')) || [];
+let metodoPagamento = "Dinheiro";
+const pixCode = "00020126330014br.gov.bcb.pix0111541548308055204000053039865802BR5918ALLE202401121827486009Sao Paulo610901227-20062240520daqr16346642472205006304C8C9";
+
+const qrContainer = document.getElementById('qr-container');
+const cartaoContainer = document.getElementById('cartao-container');
+
+function atualizarCarrinhoFinal() {
+    const carrinhoFinal = document.getElementById('carrinho-final');
+    carrinhoFinal.innerHTML = '';
+    let total = 0;
+    carrinho.forEach(item => {
+        total += item.preco;
+        const div = document.createElement('div');
+        div.innerHTML = '<img src="' + item.img + '" alt="' + item.nome + '"><span>' + item.nome + ' - R$ ' + item.preco.toFixed(2) + '</span>';
+        carrinhoFinal.appendChild(div);
+    });
+    document.getElementById('total-final').innerText = "Total: R$ " + total.toFixed(2);
 }
 
-// Mostrar categoria
-function mostrarCategoria(tipo){
-  const area = document.getElementById('categorias-lista');
-  area.innerHTML = '';
-  produtos.filter(p=>p.tipo===tipo).forEach((p,idx)=>{
-    const card = document.createElement('div');
-    card.className = 'produto fade-in';
-    card.style.animationDelay = (idx*40)+'ms';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.nome}">
-      <h3>${p.nome}</h3>
-      <p>R$ ${p.preco.toFixed(2)}</p>
-      <button onclick="adicionarCarrinho(${p.id})">Adicionar ao Carrinho</button>
-    `;
-    area.appendChild(card);
-  });
-}
+atualizarCarrinhoFinal();
 
-// Cardápio
-const cardapioProdutos = {
-  cortes: produtos.filter(p=>p.tipo==='bovinos'),
-  churrasco: produtos.filter(p=>p.tipo==='suinos'),
-  preparados: produtos.filter(p=>p.tipo==='aves')
-};
+document.querySelectorAll('.payment-methods button').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.payment-methods button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        metodoPagamento = btn.getAttribute('data-method');
 
-function mostrarCardapio(tipo){
-  const area = document.getElementById('cardapio-lista');
-  area.innerHTML = '';
-  cardapioProdutos[tipo].forEach((p,idx)=>{
-    const card = document.createElement('div');
-    card.className = 'produto fade-in';
-    card.style.animationDelay = (idx*40)+'ms';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.nome}">
-      <h3>${p.nome}</h3>
-      <p>R$ ${p.preco.toFixed(2)}</p>
-      <button onclick="adicionarCarrinho(${p.id})">Adicionar ao Carrinho</button>
-    `;
-    area.appendChild(card);
-  });
-}
+        qrContainer.innerHTML = '';
+        cartaoContainer.style.display = 'none';
 
-// Tema
-const temaBtn = document.getElementById('temaBtn');
-let tema = localStorage.getItem('beeflogy_tema') === 'light';
-if(tema) document.body.classList.add('light');
-temaBtn.addEventListener('click', ()=>{
-  tema = !tema;
-  document.body.classList.toggle('light');
-  localStorage.setItem('beeflogy_tema',tema?'light':'dark');
+        if (metodoPagamento === 'PIX') {
+            new QRCode(qrContainer, {
+                text: pixCode,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+            });
+        } else if (metodoPagamento === 'Cartão') {
+            cartaoContainer.style.display = 'block';
+        }
+    }
 });
 
-// Adicionar produto ao carrinho
-function adicionarCarrinho(id){
-  const produto = produtos.find(p=>p.id===id);
-  carrinho.push(produto);
-  atualizarCarrinho();
+// Funções de validação do cartão
+function validarCartao(numero, validade, cvv) {
+    const regexNumero = /^\d{16}$/;
+    const regexCVV = /^\d{3}$/;
+    const regexValidade = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+    if (!regexNumero.test(numero)) return "Número do cartão inválido! Deve ter 16 dígitos.";
+    if (!regexValidade.test(validade)) return "Validade inválida! Use MM/AA.";
+    if (!regexCVV.test(cvv)) return "CVV inválido! Deve ter 3 dígitos.";
+    return null;
 }
 
-// Atualizar carrinho fixo e finalização
-function atualizarCarrinho(){
-  // Carrinho fixo
-  const itensCarrinho = document.getElementById('itens-carrinho');
-  const totalCarrinho = document.getElementById('total');
-  itensCarrinho.innerHTML = '';
-  let total = 0;
-  carrinho.forEach(p=>{
-    itensCarrinho.innerHTML += `<div class="menu-item">${p.nome} - R$ ${p.preco.toFixed(2)}</div>`;
-    total += p.preco;
-  });
-  totalCarrinho.textContent = `Total: R$ ${total.toFixed(2)}`;
+document.getElementById('btn-enviar').onclick = () => {
+    const nome = document.getElementById('nome').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const endereco = document.getElementById('endereco').value.trim();
+    if (!nome || !telefone || !endereco) {
+        alert("Preencha todos os campos!");
+        return;
+    }
 
-  // Finalização
-  const itensFinal = document.getElementById('itens-carrinho-final');
-  const totalFinal = document.getElementById('total-carrinho');
-  if(itensFinal && totalFinal){
-    itensFinal.innerHTML = '';
-    carrinho.forEach(p=>{
-      itensFinal.innerHTML += `<div class="menu-item">${p.nome} - R$ ${p.preco.toFixed(2)}</div>`;
-    });
-    totalFinal.textContent = `Total: R$ ${total.toFixed(2)}`;
-  }
-}
+    let totalValor = carrinho.reduce((a, b) => a + b.preco, 0).toFixed(2);
 
-// Abrir finalização
-function abrirFinalizacao(){
-  if(carrinho.length === 0){
-    alert("Seu carrinho está vazio!");
-    return;
-  }
-  aba('finalizacao');
-  atualizarCarrinho();
-  
-}
+    if (metodoPagamento === 'PIX') {
+        alert(
+            "Pedido enviado!\nCliente: " + nome +
+            "\nTelefone: " + telefone +
+            "\nEndereço: " + endereco +
+            "\nTotal: R$ " + totalValor +
+            "\nPagamento: PIX\nUse o QR code exibido para pagar."
+        );
+    } else if (metodoPagamento === 'Cartão') {
+        const numero = document.getElementById('numero-cartao').value.trim();
+        const titular = document.getElementById('nome-cartao').value.trim();
+        const validade = document.getElementById('validade-cartao').value.trim();
+        const cvv = document.getElementById('cvv-cartao').value.trim();
 
-// Finalizar pedido
-function finalizarPedido(){
-  if(carrinho.length === 0){
-    alert("Seu carrinho está vazio!");
-    return;
-  }
-  alert("Pedido finalizado com sucesso!");
-  carrinho = [];
-  atualizarCarrinho();
-  aba('produtos');
-}
+        const erro = validarCartao(numero, validade, cvv);
+        if (erro) {
+            alert(erro);
+            return;
+        }
 
-// Inicialização
-montarProdutos();
-aba('produtos');
+        if (!titular) {
+            alert("Informe o nome do titular do cartão!");
+            return;
+        }
+
+        alert(
+            "Pedido enviado!\nCliente: " + nome +
+            "\nTelefone: " + telefone +
+            "\nEndereço: " + endereco +
+            "\nTotal: R$ " + totalValor +
+            "\nPagamento: Cartão\nNúmero: " + numero +
+            "\nNome: " + titular +
+            "\nValidade: " + validade
+        );
+    } else {
+        alert(
+            "Pedido enviado!\nCliente: " + nome +
+            "\nTelefone: " + telefone +
+            "\nEndereço: " + endereco +
+            "\nTotal: R$ " + totalValor +
+            "\nPagamento: " + metodoPagamento
+        );
+    }
+
+    localStorage.removeItem('carrinhoFinal');
+    window.close();
+};
