@@ -371,3 +371,256 @@ footer p{
   height: 28px;
   object-fit: contain;
 }
+
+/* Estilos Gerais para a Seção */
+.delivery-section {
+    padding: 40px 20px;
+    text-align: center; /* Centraliza o cabeçalho */
+    font-family: Arial, sans-serif; /* Fonte comum, substitua pela sua */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilo do Título Principal (Qualidade, Rapidez...) */
+.delivery-header h1 {
+    font-size: 2em; /* Tamanho maior */
+    color: #333; /* Cor escura */
+    margin-bottom: 5px;
+}
+
+/* Estilo do Subtítulo (DELIVERY RED & WHITE) */
+.delivery-header h2 {
+    font-size: 1.5em; 
+    color: #D9001C; /* Cor Vermelha Principal */
+    margin-top: 0;
+}
+
+/* Container que organiza os 4 cards */
+.services-container {
+    display: flex; /* Habilita o Flexbox */
+    flex-wrap: wrap; /* Permite que os cards quebrem a linha em telas menores */
+    justify-content: center; /* Centraliza os cards */
+    gap: 20px; /* Espaço entre os cards */
+    margin-top: 30px;
+}
+
+/* Estilo de cada Card Individual */
+.service-card {
+    flex-basis: 220px; /* Define uma largura base para cada card */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #eee; /* Borda sutil */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+}
+
+/* Estilo do Ícone (o círculo vermelho) */
+.service-icon {
+    display: inline-flex; /* Para centralizar o conteúdo dentro */
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Faz o círculo */
+    background-color: #D9001C; /* Fundo Vermelho */
+    margin-bottom: 15px;
+    font-size: 30px; /* Tamanho do ícone/emoji */
+    color: white; /* Cor do ícone */
+    border: 3px solid #fcebeb; /* Borda externa, para o efeito de "anel" */
+}
+
+/* Estilo para Telas Menores (Responsividade) */
+@media (max-width: 768px) {
+    .service-card {
+        flex-basis: calc(50% - 20px); /* 2 cards por linha */
+    }
+}
+
+@media (max-width: 480px) {
+    .service-card {
+        flex-basis: 100%; /* 1 card por linha */
+    }
+}
+
+/* ===== BANNER ===== */
+.banner {
+  width: 100%;
+  background: var(--accent);
+  color: var(--text);
+  text-align: center;
+  padding: 40px 20px;
+  margin: 0 0 30px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.banner-content h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.banner-content h2 {
+  margin: 10px 0;
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+.banner-content p {
+  margin-top: 15px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeInUp 1.2s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =====================
+     BANNER PRINCIPAL
+   ===================== */
+
+.banner{
+  background: var(--card);
+  padding: 40px 20px;
+  border-radius: 16px;
+  margin: 40px auto;
+  max-width: 1150px;
+  text-align: center;
+  border-left: 6px solid var(--accent);
+  border-right: 6px solid var(--accent);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  animation: fadeUp .6s ease both;
+}
+
+.banner-content h1{
+  margin: 0;
+  font-size: 32px;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.banner-content h2{
+  margin: 12px 0;
+  font-size: 22px;
+  opacity: .9;
+}
+
+.banner p{
+  opacity: .8;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+/* GRID DOS CARDS DO BANNER */
+.services-container{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+/* CARD */
+.service-card{
+  background: var(--glass);
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.service-card:hover{
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.35);
+}
+
+.service-card h1{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.service-card p{
+  opacity: .85;
+  font-size: 14px;
+}
+
+/* Responsivo */
+@media (max-width: 600px){
+  .banner-content h1{ font-size: 26px; }
+  .banner-content h2{ font-size: 18px; }
+}
+
+#carrinho {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 250px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: var(--card);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+#carrinho p{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 0;
+}
+#carrinho button.remove{
+  background:red;
+  border:none;
+  color:#fff;
+  padding:2px 6px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.produto button{
+  padding:8px 12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.produto button:hover{
+  background:#b33a3a;
+}
+
+@media(max-width:600px){
+  #carrinho{
+    width:90%;
+    bottom:10px;
+    right:5%;
+  }
+  .topo{
+    height:50vh;
+    padding:0 10px;
+  }
+}
